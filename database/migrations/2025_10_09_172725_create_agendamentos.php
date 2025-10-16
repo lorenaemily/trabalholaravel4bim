@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('cliente_id');
             $table->unsignedBigInteger('pet_id');
             $table->unsignedBigInteger('servico_id');
+            $table->foreign('servico_id')->references('id')->on('servicos')->onDelete('set null');
             $table->unsignedBigInteger('funcionario_id')->nullable();
         });
     }
