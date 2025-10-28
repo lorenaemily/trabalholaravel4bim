@@ -22,7 +22,7 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        //
+        return view('clientes.create');
     }
 
     /**
@@ -30,7 +30,17 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+        'nome' => 'required|string|max:255',
+        'email' => 'required|email|unique:clientes',
+        'telefone' => 'nullable|string|max:20',
+        'endereco' => 'nullable|string|max:255',
+        ]);
+
+         Cliente::create($request->all());
+
+        return redirect()->route('clientes.index')
+                         ->with( 'Cliente criado com sucesso.');
     }
 
     /**
@@ -44,24 +54,41 @@ class ClienteController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Cliente $cliente)
+    public function edit($id)
     {
-        //
+        $cliente = Cliente::findOrFail($id);
+        return view('clientes.edit', compact('cliente'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Cliente $cliente)
+    public function update(Request $request, $id)
     {
-        //
+        $cliente = Cliente::findOrFail($id);
+
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'email' => 'required|email|unique:clientes,email,' . $cliente->id, // ignora o próprio cliente
+            'telefone' => 'nullable|string|max:20',
+        ]);
+
+        $cliente->update($request->all());
+
+        return redirect()->route('clientes.index')
+            ->with('message', 'Cliente atualizado com sucesso!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cliente $cliente)
+    public function destroy($id )
     {
-        //
+         $cliente = Cliente::findOrFail($id);
+        $cliente->delete();
+
+        return redirect()->route('clientes.index')
+            ->with('message', 'Cliente excluído com sucesso!');
+    
     }
 }
