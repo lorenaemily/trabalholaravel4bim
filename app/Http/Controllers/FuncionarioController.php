@@ -53,18 +53,34 @@ class FuncionarioController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Funcionario $funcionario)
+    public function edit($id)
     {
-        //
+         $funcionario = Funcionario::findOrFail($id);
+        return view('funcionarios.edit', compact('funcionario'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Funcionario $funcionario)
+    public function update(Request $request, $id)
     {
-        //
+        
+        $funcionario = Funcionario::findOrFail($id);
+
+        $request->validate([
+        'nome' => 'required|string|max:255',
+        'cargo' => 'required|string|max:255',
+        'telefone' => 'nullable|string|max:20',
+        'salario' => 'nullable|string|max:255',
+        ]);
+
+        $funcionario->update($request->all());
+
+        return redirect()->route('funcionarios.index')
+            ->with('message', 'Funcionário atualizado com sucesso!');
     }
+
+
 
     /**
      * Remove the specified resource from storage.
