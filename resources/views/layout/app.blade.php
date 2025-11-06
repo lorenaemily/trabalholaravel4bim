@@ -15,7 +15,7 @@
             <a href="{{ route('clientes.index') }}">Clientes</a> |
             <a href="{{ route('pets.index') }}">Pets</a> |
             <a href="{{ route('servicos.index') }}">Serviços</a> |
-            <a href="{{ route('agendamentos.index') }}">Agendamentos</a>
+            <a href="{{ route('agendamentos.index') }}">Agendamentos</a>| <a href="{{ route('funcionarios.index') }}">Funcionários</a>
         </nav>
         <hr>
     </header>

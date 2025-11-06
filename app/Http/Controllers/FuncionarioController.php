@@ -12,7 +12,8 @@ class FuncionarioController extends Controller
      */
     public function index()
     {
-        //
+        $funcionarios= Funcionario::all();
+        return view('funcionarios.index', compact('funcionarios'));
     }
 
     /**
@@ -20,7 +21,7 @@ class FuncionarioController extends Controller
      */
     public function create()
     {
-        //
+        return view('funcionarios.create');
     }
 
     /**
@@ -28,7 +29,17 @@ class FuncionarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+                $request->validate([
+        'nome' => 'required|string|max:255',
+        'cargo' => 'required|string|max:255',
+        'telefone' => 'nullable|string|max:20',
+        'salario' => 'nullable|string|max:255',
+        ]);
+
+         Funcionario::create($request->all());
+
+        return redirect()->route('funcionarios.index')
+                         ->with( 'Funcionário contratado com sucesso.');
     }
 
     /**
