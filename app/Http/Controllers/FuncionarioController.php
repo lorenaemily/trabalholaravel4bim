@@ -85,8 +85,13 @@ class FuncionarioController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Funcionario $funcionario)
+    public function destroy($id)
     {
-        //
+        $funcionario = funcionario::findOrFail($id);
+        $funcionario->delete();
+
+        return redirect()->route('funcionarios.index')
+            ->with('message', 'Funcionario excluido com sucesso!');
+    
     }
 }
