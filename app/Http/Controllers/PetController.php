@@ -68,7 +68,18 @@ class PetController extends Controller
      */
     public function update(Request $request, Pet $pet)
     {
-        //
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'especie' => 'required|string|max:255',
+            'idade' => 'nullable|integer',
+            'raca' => 'nullable|string|max:255',
+            'cliente_id' => 'nullable|exists:clientes,id',
+        ]);
+
+        $pet->update($request->all());
+
+        return redirect()->route('pets.index')
+                         ->with('success', 'Pet atualizado com sucesso.');
     }
 
     /**
