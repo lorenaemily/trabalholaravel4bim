@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nome'); // nome do pet
             $table->string('especie'); // cachorro, gato, etc
             $table->integer('idade')->nullable(); // idade opcional
+            $table->string('raca'); // raça obrigatório
             $table->unsignedBigInteger('cliente_id')->nullable(); // dono (usuário)
             $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('set null'); // referência ao usuário
             $table->timestamps(); // timestamps para created_at e updated_at
