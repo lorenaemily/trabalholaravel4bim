@@ -31,7 +31,18 @@ class PetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'especie' => 'required|string|max:255',
+            'idade' => 'nullable|integer',
+            'raca' => 'nullable|string|max:255',
+            'cliente_id' => 'nullable|exists:clientes,id',
+        ]);
+
+         Pet::create($request->all());
+
+        return redirect()->route('pets.index')
+                         ->with( 'Pet criado com sucesso.');
     }
 
     /**
