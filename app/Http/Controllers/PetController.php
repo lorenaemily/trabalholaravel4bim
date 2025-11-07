@@ -56,9 +56,11 @@ class PetController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Pet $pet)
+    public function edit($id)
     {
-        //
+        $pet = Pet::findOrFail($id);
+        $clientes = Cliente::all();
+        return view('pets.edit', compact('pet', 'clientes'));
     }
 
     /**
