@@ -21,11 +21,13 @@
                 @endif
 
         <a href="{{ route('pets.edit', $pet->id) }}">Editar</a>
-        <form action="{{ route('pets.destroy', $pet->id) }}" method="POST" style="display:inline;">
+
+      <form action="{{ route('pets.destroy', $pet->id) }}" method="POST" style="display:inline;">
             @csrf
             @method('DELETE')
-            <button type="submit" onclick="return confirm('Tem certeza que deseja excluir este pet?')">Excluir</button>
+            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este pet?')"> Excluir </button>
         </form>
+
     </li>
 @endforeach
 </ul>
