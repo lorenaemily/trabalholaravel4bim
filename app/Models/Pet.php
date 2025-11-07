@@ -14,6 +14,7 @@ class Pet extends Model
         'nome',
         'especie',
         'idade',
+        'raca',
         'cliente_id',
     ];
 
