@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string("nome");
             $table->string("valor");
             $table->text('descricao')->nullable();
-            $table->foreignId('funcionario_id')->nullable()->constrained('funcionarios')->nullOnDelete();
         });
     }
     /**
