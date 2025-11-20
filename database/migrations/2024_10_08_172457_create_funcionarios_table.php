@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal("salario", 10, 2);
             $table->string("telefone")->nullable();
             $table->string('email')->unique();
+            $table->string('cpf')->unique();
             $table->foreignId('servico_id')->constraine('servicos')->onDelete('cascade');
 
         });

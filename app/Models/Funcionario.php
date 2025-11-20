@@ -15,6 +15,7 @@ class Funcionario extends Model
         'telefone',
         'email',
         'servico_id',
+        'cpf',
     ];
     
     public function agendamentos()

@@ -33,9 +33,11 @@ class FuncionarioController extends Controller
     {
                 $request->validate([
         'nome' => 'required|string|max:255',
-        'cargo' => 'required|string|max:255',
+        'cpf' => 'required|unique:funcionarios',
         'telefone' => 'nullable|string|max:20',
-        'salario' => 'nullable|string|max:255',
+        'salario' => 'required|numeric|max:255',
+        'servico_id' => 'required|exists:servicos,id',
+        'email' => 'required|email',
         ]);
 
          Funcionario::create($request->all());
@@ -58,7 +60,7 @@ class FuncionarioController extends Controller
     public function edit($id)
     {
          $funcionario = Funcionario::findOrFail($id);
-        return view('funcionarios.edit', compact('funcionario'));
+        return view('funcionarios.edit', compact('funcionario', 'servico'));
     }
 
     /**
@@ -70,10 +72,13 @@ class FuncionarioController extends Controller
         $funcionario = Funcionario::findOrFail($id);
 
         $request->validate([
-        'nome' => 'required|string|max:255',
-        'cargo' => 'required|string|max:255',
-        'telefone' => 'nullable|string|max:20',
-        'salario' => 'nullable|string|max:255',
+            'nome' => 'required',
+            'cpf' => 'required|unique:funcionarios,cpf,' . $funcionario->id,
+            'telefone' => 'nullable',
+            'email' => 'required|email',
+            'endereco' => 'nullable',
+            'servico_id' => 'required|exists:servicos,id',
+            'salario' => 'required|numeric',
         ]);
 
         $funcionario->update($request->all());
