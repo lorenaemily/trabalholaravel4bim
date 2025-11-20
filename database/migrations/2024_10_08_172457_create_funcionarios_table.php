@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string("telefone")->nullable();
             $table->string('email')->unique();
             $table->string('cpf')->unique();
-            $table->foreignId('servico_id')->constraine('servicos')->onDelete('cascade');
+            $table->foreignId('servico_id')->constrained('servicos')->onDelete('cascade');  
 
         });
     }

@@ -13,7 +13,7 @@ class FuncionarioController extends Controller
      */
     public function index()
     {
-        $funcionarios= Funcionario::with('servico')->get();
+        $funcionarios = Funcionario::with('servico')->get();
         return view('funcionarios.index', compact('funcionarios'));
     }
 
@@ -22,8 +22,9 @@ class FuncionarioController extends Controller
      */
     public function create()
     {
-        $servico = Servico::all();
-        return view('funcionarios.create', compact('servico'));
+        // AQUI ESTAVA ERRADO: era $servico, mas o correto é $servicos
+        $servicos = Servico::all();
+        return view('funcionarios.create', compact('servicos'));
     }
 
     /**
@@ -31,19 +32,20 @@ class FuncionarioController extends Controller
      */
     public function store(Request $request)
     {
-                $request->validate([
-        'nome' => 'required|string|max:255',
-        'cpf' => 'required|unique:funcionarios',
-        'telefone' => 'nullable|string|max:20',
-        'salario' => 'required|numeric|max:255',
-        'servico_id' => 'required|exists:servicos,id',
-        'email' => 'required|email',
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'cpf' => 'required|unique:funcionarios',
+            'telefone' => 'nullable|string|max:20',
+            'salario' => 'required|numeric',
+            'servico_id' => 'required|exists:servicos,id',
+            'email' => 'required|email',
         ]);
 
-         Funcionario::create($request->all());
+        Funcionario::create($request->all());
 
-        return redirect()->route('funcionarios.index')
-                         ->with( 'Funcionário contratado com sucesso.');
+        return redirect()
+            ->route('funcionarios.index')
+            ->with('success', 'Funcionário contratado com sucesso.');
     }
 
     /**
@@ -51,7 +53,7 @@ class FuncionarioController extends Controller
      */
     public function show(Funcionario $funcionario)
     {
-        //
+
     }
 
     /**
@@ -59,8 +61,12 @@ class FuncionarioController extends Controller
      */
     public function edit($id)
     {
-         $funcionario = Funcionario::findOrFail($id);
-        return view('funcionarios.edit', compact('funcionario', 'servico'));
+        $funcionario = Funcionario::findOrFail($id);
+
+        // AQUI ESTAVA FALTANDO: $servicos para o select
+        $servicos = Servico::all();
+
+        return view('funcionarios.edit', compact('funcionario', 'servicos'));
     }
 
     /**
@@ -68,37 +74,35 @@ class FuncionarioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
         $funcionario = Funcionario::findOrFail($id);
 
         $request->validate([
-            'nome' => 'required',
+            'nome' => 'required|string|max:255',
             'cpf' => 'required|unique:funcionarios,cpf,' . $funcionario->id,
-            'telefone' => 'nullable',
+            'telefone' => 'nullable|string|max:20',
             'email' => 'required|email',
-            'endereco' => 'nullable',
+            'endereco' => 'nullable|string|max:255',
             'servico_id' => 'required|exists:servicos,id',
             'salario' => 'required|numeric',
         ]);
 
         $funcionario->update($request->all());
 
-        return redirect()->route('funcionarios.index')
-            ->with('message', 'Funcionário atualizado com sucesso!');
+        return redirect()
+            ->route('funcionarios.index')
+            ->with('success', 'Funcionário atualizado com sucesso!');
     }
-
-
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy($id)
     {
-        $funcionario = funcionario::findOrFail($id);
+        $funcionario = Funcionario::findOrFail($id);
         $funcionario->delete();
 
-        return redirect()->route('funcionarios.index')
-            ->with('message', 'Funcionario excluido com sucesso!');
-    
+        return redirect()
+            ->route('funcionarios.index')
+            ->with('success', 'Funcionário excluído com sucesso!');
     }
 }
