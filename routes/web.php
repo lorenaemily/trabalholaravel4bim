@@ -14,6 +14,6 @@ Route::resource('pets', PetController::class);
 Route::resource('funcionarios', FuncionarioController::class);
 Route::resource('servicos', ServicoController::class);
 Route::resource('agendamentos', AgendamentoController::class);
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/index', function () {
+    return view('layout.app');
 });

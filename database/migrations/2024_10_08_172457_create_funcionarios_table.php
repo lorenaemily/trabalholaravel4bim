@@ -15,9 +15,11 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string("nome");
-            $table->string("cargo");
-            $table->string("salario");
+            $table->decimal("salario", 10, 2);
             $table->string("telefone")->nullable();
+            $table->string('email')->unique();
+            $table->foreignId('servico_id')->constraine('servicos')->onDelete('cascade');
+
         });
     }
 

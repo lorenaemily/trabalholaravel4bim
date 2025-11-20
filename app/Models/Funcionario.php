@@ -13,10 +13,18 @@ class Funcionario extends Model
         'cargo',
         'salario',
         'telefone',
+        'email',
+        'servico_id',
     ];
     
     public function agendamentos()
     {
         return $this->hasMany(Agendamento::class);
     }
+
+    public function servicos()
+    {
+        return $this->belongsTo(Servico::class);
+    }
+
 }

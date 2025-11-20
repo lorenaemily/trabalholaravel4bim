@@ -13,7 +13,15 @@ class Servico extends Model
         'nome',
         'descricao',
         'valor',
+        'funcionario_id',
     ];
+
+     public function funcionario()
+    {
+        return $this->belongsTo(Funcionario::class)->withDefault([
+            'nome' => 'Sem funcionário'
+        ]);
+    }
 
     public function agendamentos()
     {
