@@ -12,13 +12,12 @@ class Servico extends Model
     protected $fillable = [
         'nome',
         'descricao',
-        'valor',
-        'funcionario_id',
+        'preco',
     ];
 
      public function funcionario()
     {
-        return $this->belongsTo(Funcionario::class)->withDefault([
+        return $this->hasMany(Funcionario::class)->withDefault([
             'nome' => 'Sem funcionário'
         ]);
     }
