@@ -49,17 +49,27 @@ class ServicoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Servico $servico)
+    public function edit($id)
     {
-        //
+        $servico = Servico::findOrFail($id);
+        return view('servicos.edit', compact('servico'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Servico $servico)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'descricao' => 'nullable|string',
+            'preco' => 'required|numeric',
+        ]);
+
+        $servico = Servico::findOrFail($id);
+        $servico->update($request->all());
+
+        return redirect()->route('servicos.index')->with('success', 'Serviço atualizado com sucesso.');
     }
 
     /**
