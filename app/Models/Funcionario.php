@@ -23,9 +23,10 @@ class Funcionario extends Model
         return $this->hasMany(Agendamento::class);
     }
 
-    public function servicos()
+    public function servico()
     {
         return $this->belongsTo(Servico::class);
     }
+
 
 }
