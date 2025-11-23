@@ -75,8 +75,15 @@ class ServicoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Servico $servico)
+    public function destroy($id)
     {
-        //
+        $servico = Servico::with('funcionarios')->findOrFail($id);
+        if ($servico->funcionarios) {
+            foreach ($servico->funcionarios as $funcionario) {
+                $funcionario->delete(); 
+            }}
+
+        $servico->delete();
+        return redirect()->route('servicos.index')->with('success', 'Serviço deletado com sucesso.');
     }
 }
