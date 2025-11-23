@@ -29,7 +29,13 @@ class ServicoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'descricao' => 'nullable|string',
+            'preco' => 'required|numeric',
+        ]);
+        Servico::create($request->all());
+        return redirect()->route('servicos.index')->with('success', 'Serviço criado com sucesso.');
     }
 
     /**
