@@ -15,12 +15,11 @@ class Servico extends Model
         'preco',
     ];
 
-     public function funcionario()
+    public function funcionarios()
     {
-        return $this->hasMany(Funcionario::class)->withDefault([
-            'nome' => 'Sem funcionário'
-        ]);
+        return $this->hasMany(Funcionario::class, 'servico_id');
     }
+
 
     public function agendamentos()
     {
