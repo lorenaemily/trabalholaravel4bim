@@ -7,7 +7,7 @@
 <body>
     <h1>Cadastro de Serviço</h1>
 
-    <form action="{{ route( Servicos.store') }}" method="POST">
+    <form action="{{ route('servicos.store') }}" method="POST">
         @csrf
 
         <label>Nome:</label>
@@ -22,6 +22,6 @@
         <button type="submit">Salvar</button>
     </form>
 
-    <a href="{{ route( Servicos.index') }}">Voltar</a>
+    <a href="{{ route('servicos.index') }}">Voltar</a>
 </body>
 </html>
