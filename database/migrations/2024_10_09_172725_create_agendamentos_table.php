@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('agendamentos', function (Blueprint $table) {
             $table->id();
             $table->date('data');
-            $table->time("hora");
+            $table->time('hora');
             $table->unsignedBigInteger('cliente_id');
             $table->unsignedBigInteger('pet_id');
             $table->unsignedBigInteger('servico_id');
