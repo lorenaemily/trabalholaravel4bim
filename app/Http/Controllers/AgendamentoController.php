@@ -21,7 +21,7 @@ class AgendamentoController extends Controller
      */
     public function create()
     {
-        //
+        return view('agendamentos.create');
     }
 
     /**
@@ -29,7 +29,19 @@ class AgendamentoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'data' => 'required|date',
+            'hora' => 'required|time',
+            'servico_id' => 'required|exists:servicos,id',
+            'pet_id' => 'required|exists:pets,id',
+            'funcionario_id' => 'required|exists:funcionarios,id',
+            'cliente_id' => 'required|exists:clientes,id',
+        ]);
+
+        Agendamento::create($request->all());
+        return redirect()
+            ->route('agendamentos.index')
+            ->with('success', 'Agendamento criado com sucesso.');
     }
 
     /**
