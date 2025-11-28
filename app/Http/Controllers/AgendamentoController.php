@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Agendamento;
+use App\Models\Cliente;
+use App\Models\Funcionario;
+use App\Models\Servico;
+use App\Models\Pet;
 use Illuminate\Http\Request;
 
 class AgendamentoController extends Controller
@@ -21,7 +25,11 @@ class AgendamentoController extends Controller
      */
     public function create()
     {
-        return view('agendamentos.create');
+        $clientes=Cliente::All();
+        $funcionarios=Funcionario::All();
+        $servicos=Servico::All();
+        $pets=Pet::All();  
+        return view('agendamentos.create', compact('clientes','funcionarios','servicos','pets'));
     }
 
     /**
@@ -68,7 +76,7 @@ class AgendamentoController extends Controller
     {
         $request->validate([
             'data' => 'required|date',
-            'hora' => 'required|time',
+            'hora' => 'required',
             'servico_id' => 'required|exists:servicos,id',
             'pet_id' => 'required|exists:pets,id',
             'funcionario_id' => 'required|exists:funcionarios,id',
