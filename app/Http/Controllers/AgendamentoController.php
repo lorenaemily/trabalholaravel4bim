@@ -66,7 +66,19 @@ class AgendamentoController extends Controller
      */
     public function update(Request $request, Agendamento $agendamento)
     {
-        //
+        $request->validate([
+            'data' => 'required|date',
+            'hora' => 'required|time',
+            'servico_id' => 'required|exists:servicos,id',
+            'pet_id' => 'required|exists:pets,id',
+            'funcionario_id' => 'required|exists:funcionarios,id',
+            'cliente_id' => 'required|exists:clientes,id',
+        ]);
+
+        Agendamento::update($request->all());
+        return redirect()
+            ->route('agendamentos.index')
+            ->with('success', 'Agendamento atualizado com sucesso.');
     }
 
     /**
