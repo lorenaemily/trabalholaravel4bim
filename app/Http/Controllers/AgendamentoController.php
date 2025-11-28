@@ -64,7 +64,7 @@ class AgendamentoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Agendamento $agendamento)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'data' => 'required|date',
@@ -84,8 +84,12 @@ class AgendamentoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Agendamento $agendamento)
+    public function destroy($id)
     {
-        //
+        $agendamento = Agendamento::findOrFail($id);
+        $agendamento->delete();
+        return redirect()
+            ->route('agendamentos.index')
+            ->with('success', 'Agendamento deletado com sucesso.');
     }
 }

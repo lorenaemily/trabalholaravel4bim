@@ -82,7 +82,7 @@ class ClienteController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id )
+    public function destroy($id)
     {
          $cliente = Cliente::findOrFail($id);
         $cliente->delete();
