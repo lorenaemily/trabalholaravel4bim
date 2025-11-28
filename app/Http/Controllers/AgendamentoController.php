@@ -55,9 +55,10 @@ class AgendamentoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Agendamento $agendamento)
+    public function edit($id)
     {
-        //
+        $agendamento = Agendamento::findOrFail($id);
+        return view('agendamentos.edit', compact('agendamento'));
     }
 
     /**
