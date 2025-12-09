@@ -1,80 +1,91 @@
-@extends('layout.app')
+@extends('layouts.app')
 
 @section('content')
-    <h1>Editar Funcionário</h1>
+<div class="max-w-3xl mx-auto bg-white shadow-lg rounded-xl p-8 border border-gray-200">
 
-    {{-- Mensagem de sucesso --}}
-    @if (session('message'))
-        <div>{{ session('message') }}</div>
-    @endif
+    <h1 class="text-3xl font-bold mb-6 text-[#0A1F44]">
+        ✏️ Editar Funcionário
+    </h1>
 
-    {{-- Exibição de erros --}}
-    @if ($errors->any())
-        <div>
-            <strong>Erros:</strong>
-            <ul>
-                @foreach ($errors->all() as $erro)
-                    <li>{{ $erro }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    <form action="{{ route('funcionarios.update', $funcionario->id) }}" method="POST">
+    <form action="{{ route('funcionarios.update', $funcionario->id) }}" method="POST" class="space-y-4">
         @csrf
         @method('PUT')
 
-        <label>Nome:</label>
-        <input type="text"
-               name="nome"
-               value="{{ old('nome', $funcionario->nome) }}"
-               required>
-        <br><br>
+        {{-- Nome --}}
+        <div>
+            <label class="block font-semibold text-[#0A1F44]">Nome</label>
+            <input type="text" name="nome" value="{{ $funcionario->nome }}"
+                class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#F97316] outline-none"
+                required>
+        </div>
 
-        <label>CPF:</label>
-        <input type="text"
-               name="cpf"
-               value="{{ old('cpf', $funcionario->cpf) }}"
-               required>
-        <br><br>
+        {{-- Serviço --}}
+        <div>
+            <label class="block font-semibold text-[#0A1F44]">Serviço</label>
+            <select name="servico_id"
+                class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#F97316] outline-none"
+                required>
+                @foreach ($servicos as $servico)
+                    <option value="{{ $servico->id }}"
+                        {{ $funcionario->servico_id == $servico->id ? 'selected' : '' }}>
+                        {{ $servico->nome }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
 
-        <label>Email:</label>
-        <input type="email"
-               name="email"
-               value="{{ old('email', $funcionario->email) }}"
-               required>
-        <br><br>
+        {{-- Salário --}}
+        <div>
+            <label class="block font-semibold text-[#0A1F44]">Salário</label>
+            <input type="number" step="0.01" name="salario" value="{{ $funcionario->salario }}"
+                class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#F97316] outline-none"
+                required>
+        </div>
 
-        <label>Telefone:</label>
-        <input type="text"
-               name="telefone"
-               value="{{ old('telefone', $funcionario->telefone) }}">
-        <br><br>
+        {{-- Telefone --}}
+        <div>
+            <label class="block font-semibold text-[#0A1F44]">Telefone</label>
+            <input type="text" name="telefone" value="{{ $funcionario->telefone }}"
+                class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#F97316] outline-none"
+                required>
+        </div>
 
-        <label>Salário:</label>
-        <input type="number"
-               step="0.01"
-               name="salario"
-               value="{{ old('salario', $funcionario->salario) }}"
-               required>
-        <br><br>
+        {{-- Email --}}
+        <div>
+            <label class="block font-semibold text-[#0A1F44]">Email</label>
+            <input type="email" name="email" value="{{ $funcionario->email }}"
+                class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#F97316] outline-none"
+                required>
+        </div>
 
-        <label>Serviço:</label>
-        <select name="servico_id" required>
-            <option value="">Selecione um serviço</option>
+        {{-- Endereço --}}
+        <div>
+            <label class="block font-semibold text-[#0A1F44]">Endereço</label>
+            <input type="text" name="endereco" value="{{ $funcionario->endereco }}"
+                class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#F97316] outline-none"
+                required>
+        </div>
 
-            @foreach($servicos as $servico)
-                <option value="{{ $servico->id }}"
-                    {{ old('servico_id', $funcionario->servico_id) == $servico->id ? 'selected' : '' }}>
-                    {{ $servico->nome }}
-                </option>
-            @endforeach
-        </select>
-        <br><br>
+        {{-- CPF --}}
+        <div>
+            <label class="block font-semibold text-[#0A1F44]">CPF</label>
+            <input type="text" name="cpf" value="{{ $funcionario->cpf }}"
+                class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#F97316] outline-none"
+                required>
+        </div>
 
-        <button type="submit">Salvar alterações</button>
+        <div class="flex justify-between mt-6">
+            <a href="{{ route('funcionarios.index') }}"
+               class="px-4 py-2 rounded-lg bg-[#0A1F44] text-white hover:bg-[#122c5f] transition">
+                Voltar
+            </a>
+
+            <button type="submit"
+                class="px-6 py-2 rounded-lg bg-[#F97316] text-white font-bold hover:bg-[#ea630b] transition">
+                Atualizar
+            </button>
+        </div>
+
     </form>
-
-    <br>
-    <a href="{{ route('funcionarios.index') }}">Voltar</a>
+</div>
 @endsection

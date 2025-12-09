@@ -1,39 +1,42 @@
-@extends('layout.app')
+@extends('layouts.app')
 
 @section('content')
-    <h1>Editar Cliente</h1>
 
-    {{-- Mensagem de sucesso --}}
-    @if (session('message'))
-        <div>{{ session('message') }}</div>
-    @endif
+<div class="bg-white shadow-md rounded-lg p-6 max-w-3xl mx-auto">
 
-    {{-- Exibição de erros --}}
-    @if ($errors->any())
-        <div>
-            <strong>Erros:</strong>
-            <ul>
-                @foreach ($errors->all() as $erro)
-                    <li>{{ $erro }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    <h1 class="text-2xl font-bold text-azulEscuro mb-6">Editar Cliente</h1>
 
-    <form action="{{ route('clientes.update', $cliente->id) }}" method="POST">
+    <form action="{{ route('clientes.update', $cliente->id) }}" method="POST" class="space-y-5">
         @csrf
         @method('PUT')
 
-        <label for="nome">Nome:</label><br>
-        <input type="text" name="nome" id="nome" value="{{ old('nome', $cliente->nome) }}" required><br><br>
+        <div>
+            <label class="font-semibold text-azulEscuro">Nome</label>
+            <input type="text" name="nome" value="{{ $cliente->nome }}" required
+                   class="w-full border rounded p-2 mt-1 focus:ring-laranja">
+        </div>
 
-        <label for="email">E-mail:</label><br>
-        <input type="email" name="email" id="email" value="{{ old('email', $cliente->email) }}" required><br><br>
+        <div>
+            <label class="font-semibold text-azulEscuro">Telefone</label>
+            <input type="text" name="telefone" value="{{ $cliente->telefone }}" required
+                   class="w-full border rounded p-2 mt-1 focus:ring-laranja">
+        </div>
 
-        <label for="telefone">Telefone:</label><br>
-        <input type="text" name="telefone" id="telefone" value="{{ old('telefone', $cliente->telefone) }}"><br><br>
+        <div>
+            <label class="font-semibold text-azulEscuro">Email</label>
+            <input type="email" name="email" value="{{ $cliente->email }}"
+                   class="w-full border rounded p-2 mt-1 focus:ring-laranja">
+        </div>
 
-        <button type="submit">Salvar Alterações</button>
-        <a href="{{ route('clientes.index') }}">Voltar</a>
+        <button
+            class="bg-laranja text-white px-6 py-2 rounded shadow hover:bg-orange-500">
+            Atualizar
+        </button>
+
+        <a href="{{ route('clientes.index') }}" class="ml-4 text-gray-600 hover:underline">
+            Cancelar
+        </a>
     </form>
+</div>
+
 @endsection

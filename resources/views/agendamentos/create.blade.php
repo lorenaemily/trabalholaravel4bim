@@ -1,56 +1,78 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <title>Cadastrar Agendamento</title>
-</head>
-<body>
-    <h1>Cadastro de Agendamento</h1>
+@extends('layouts.app')
 
-    <form action="{{ route('agendamentos.store') }}" method="POST">
+@section('content')
+
+<div class="bg-white shadow-md rounded-lg p-6 max-w-3xl mx-auto">
+
+    <h1 class="text-2xl font-bold text-azulEscuro mb-6">Novo Agendamento</h1>
+
+    <form action="{{ route('agendamentos.store') }}" method="POST" class="space-y-5">
         @csrf
 
-        <label>Data:</label>
-        <input type="date" name="data" required><br><br>
-
-        <label>Hora:</label>
-        <input type="time" name="hora" required><br><br>
-
-        <label for="servico_id">Serviço:</label>
-        <select name="servico_id" id="servico_id" required>
-                <option value="">Selecione o Serviço</option>
-                @foreach ($servicos as $servico)
-                    <option value="{{ $servico->id }}" >{{ $servico->nome }}</option>
-                @endforeach
-        </select><br><br>
-
-        <label for="funcionario_id">Funcionario:</label>
-        <select name="funcionario_id" id="funcionario_id" required>
-                <option value="">Selecione o Funcionário</option>
-                @foreach ($funcionarios as $funcionario)
-                    <option value="{{ $funcionario->id }}" >{{ $funcionario->nome }}</option>
-                @endforeach
-        </select><br><br>
-
-        <label for="pet_id">Pet:</label>
-        <select name="pet_id" id="pet_id" required>
-                <option value="">Selecione o Animal</option>
-                @foreach ($pets as $pet)
-                    <option value="{{ $pet->id }}" >{{ $pet->raca }}</option>
-                @endforeach
-        </select><br><br>
-
-        <label for="cliente_id">Dono (Cliente):</label>
-        <select name="cliente_id" id="cliente_id" required>
-                <option value="">Selecione o dono</option>
+        <!-- Cliente -->
+        <div>
+            <label class="font-semibold text-azulEscuro">Cliente</label>
+            <select name="cliente_id" required
+                    class="w-full border rounded p-2 mt-1 focus:ring-laranja">
+                <option value="">Selecione...</option>
                 @foreach ($clientes as $cliente)
-                    <option value="{{ $cliente->id }}" >{{ $cliente->nome }}</option>
+                    <option value="{{ $cliente->id }}">{{ $cliente->nome }}</option>
                 @endforeach
-        </select><br><br>
+            </select>
+        </div>
 
-        <button type="submit">Salvar</button>
+        <!-- Pet -->
+        <div>
+            <label class="font-semibold text-azulEscuro">Pet</label>
+            <select name="pet_id" required
+                    class="w-full border rounded p-2 mt-1 focus:ring-laranja">
+                <option value="">Selecione...</option>
+                @foreach ($pets as $pet)
+                    <option value="{{ $pet->id }}">{{ $pet->nome }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <!-- Serviço -->
+        <div>
+            <label class="font-semibold text-azulEscuro">Serviço</label>
+            <select name="servico_id" required
+                    class="w-full border rounded p-2 mt-1 focus:ring-laranja">
+                <option value="">Selecione...</option>
+                @foreach ($servicos as $servico)
+                    <option value="{{ $servico->id }}">{{ $servico->nome }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <!-- Funcionário -->
+        <div>
+            <label class="font-semibold text-azulEscuro">Funcionário</label>
+            <select name="funcionario_id" required
+                    class="w-full border rounded p-2 mt-1 focus:ring-laranja">
+                <option value="">Selecione...</option>
+                @foreach ($funcionarios as $funcionario)
+                    <option value="{{ $funcionario->id }}">{{ $funcionario->nome }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <!-- Data e hora -->
+        <div>
+            <label class="font-semibold text-azulEscuro">Data e Hora</label>
+            <input type="datetime-local" name="data_hora" required
+                   class="w-full border rounded p-2 mt-1 focus:ring-laranja">
+        </div>
+
+        <button
+            class="bg-laranja text-white px-6 py-2 rounded shadow hover:bg-orange-500">
+            Salvar
+        </button>
+
+        <a href="{{ route('agendamentos.index') }}" class="ml-4 text-gray-600 hover:underline">
+            Cancelar
+        </a>
     </form>
+</div>
 
-    <a href="{{ route('funcionarios.index') }}">Voltar</a>
-</body>
-</html>
+@endsection

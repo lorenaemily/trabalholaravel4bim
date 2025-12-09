@@ -1,30 +1,41 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <title>Cadastrar Cliente</title>
-</head>
-<body>
-    <h1>Cadastro de Cliente</h1>
+@extends('layouts.app')
 
-    <form action="{{ route('clientes.store') }}" method="POST">
+@section('content')
+
+<div class="bg-white shadow-md rounded-lg p-6 max-w-3xl mx-auto">
+
+    <h1 class="text-2xl font-bold text-azulEscuro mb-6">Cadastrar Cliente</h1>
+
+    <form action="{{ route('clientes.store') }}" method="POST" class="space-y-5">
         @csrf
 
-        <label>Nome:</label>
-        <input type="text" name="nome" required><br><br>
+        <div>
+            <label class="font-semibold text-azulEscuro">Nome</label>
+            <input type="text" name="nome" required
+                   class="w-full border rounded p-2 mt-1 focus:ring-laranja">
+        </div>
 
-        <label>Email:</label>
-        <input type="email" name="email" required><br><br>
+        <div>
+            <label class="font-semibold text-azulEscuro">Telefone</label>
+            <input type="text" name="telefone" required
+                   class="w-full border rounded p-2 mt-1 focus:ring-laranja">
+        </div>
 
-        <label>Telefone:</label>
-        <input type="text" name="telefone"><br><br>
+        <div>
+            <label class="font-semibold text-azulEscuro">Email</label>
+            <input type="email" name="email"
+                   class="w-full border rounded p-2 mt-1 focus:ring-laranja">
+        </div>
 
-        <label>Endereço:</label>
-        <input type="text" name="endereco"><br><br>
+        <button
+            class="bg-laranja text-white px-6 py-2 rounded shadow hover:bg-orange-500">
+            Salvar
+        </button>
 
-        <button type="submit">Salvar</button>
+        <a href="{{ route('clientes.index') }}" class="ml-4 text-gray-600 hover:underline">
+            Cancelar
+        </a>
     </form>
+</div>
 
-    <a href="{{ route('clientes.index') }}">Voltar</a>
-</body>
-</html>
+@endsection
