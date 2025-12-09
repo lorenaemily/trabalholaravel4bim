@@ -1,27 +1,42 @@
-@extends('layouts.app')
+@extends('layouts.guest')
 
 @section('content')
 
-<div class="max-w-md mx-auto bg-white p-8 rounded-xl shadow shadow-lg">
+<div class="bg-white shadow-lg rounded-xl p-8 border-t-4 border-laranja">
 
-    <h2 class="text-2xl font-bold text-azulEscuro mb-6 text-center">Recuperar Senha</h2>
+    <h1 class="text-xl font-bold text-azulEscuro text-center mb-4">
+        Recuperar senha
+    </h1>
 
-    <p class="text-gray-600 text-sm mb-4">
+    <p class="text-gray-600 mb-4">
         Informe seu email e enviaremos um link para redefinir sua senha.
     </p>
+
+    <x-auth-session-status class="mb-4" :status="session('status')" />
 
     <form method="POST" action="{{ route('password.email') }}">
         @csrf
 
-        <label class="block mb-2 font-semibold text-gray-700">Email</label>
-        <input type="email" name="email"
-               class="w-full p-3 border rounded-lg mb-6 focus:ring-2 focus:ring-azulMedio">
+        <!-- Email -->
+        <div>
+            <label class="block font-semibold text-azulEscuro mb-1">Email</label>
+            <input type="email" name="email" required
+                class="w-full border-gray-300 rounded-lg shadow-sm focus:border-laranja focus:ring-laranja">
+        </div>
 
-        <button class="w-full bg-laranja text-white p-3 rounded-lg font-semibold hover:bg-orange-500">
-            Enviar Link
+        <!-- Botão -->
+        <button
+            class="w-full mt-6 bg-orange-600 hover:bg-orange-500 text-white font-bold py-2 rounded-lg transition">
+            Enviar link
         </button>
+
+        <p class="mt-4 text-center text-sm">
+            <a href="{{ route('login') }}" class="text-azulMedio hover:underline">Voltar ao login</a>
+        </p>
+
     </form>
 
 </div>
 
 @endsection
+

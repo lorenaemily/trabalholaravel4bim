@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Requests\FuncionarioRequest;
 use App\Models\Funcionario;
 use App\Models\Servico;
 use Illuminate\Http\Request;
@@ -30,7 +30,7 @@ class FuncionarioController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(FuncionarioRequest $request)
     {
         $request->validate([
             'nome' => 'required|string|max:255',
@@ -72,7 +72,7 @@ class FuncionarioController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(FuncionarioRequest $request, $id)
     {
         $funcionario = Funcionario::findOrFail($id);
 

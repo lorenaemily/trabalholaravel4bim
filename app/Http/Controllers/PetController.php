@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pet;
 use App\Models\Cliente;
 use Illuminate\Http\Request;
+use App\Http\Requests\PetRequest;
 
 class PetController extends Controller
 {
@@ -29,7 +30,7 @@ class PetController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PetRequest $request)
     {
         $request->validate([
             'nome' => 'required|string|max:255',
@@ -66,7 +67,7 @@ class PetController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Pet $pet)
+    public function update(PetRequest $request, Pet $pet)
     {
         $request->validate([
             'nome' => 'required|string|max:255',

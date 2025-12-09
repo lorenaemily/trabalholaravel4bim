@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Requests\ServicoRequest;
 use App\Models\Servico;
 use Illuminate\Http\Request;
 
@@ -27,7 +27,7 @@ class ServicoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ServicoRequest $request)
     {
         $request->validate([
             'nome' => 'required|string|max:255',
@@ -58,7 +58,7 @@ class ServicoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(ServicoRequest $request, $id)
     {
         $request->validate([
             'nome' => 'required|string|max:255',

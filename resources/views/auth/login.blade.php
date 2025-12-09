@@ -1,58 +1,55 @@
-@extends('layouts.app')
+@extends('layouts.guest')
 
 @section('content')
 
-<div class="max-w-md mx-auto bg-white p-8 rounded-xl shadow-lg">
-    <h2 class="text-2xl font-bold text-azulEscuro mb-6 text-center">Entrar</h2>
+<div class="bg-white shadow-lg rounded-xl p-8 border-t-4 border-laranja">
 
-    @if ($errors->any())
-        <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
-            <ul class="text-sm">
-                @foreach ($errors->all() as $error)
-                    <li>• {{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    <h1 class="text-2xl font-bold text-azulEscuro text-center mb-6">
+        Bem-vindo ao PetShop 
+    </h1>
+
+    <!-- Sessão de Erros -->
+    <x-auth-session-status class="mb-4" :status="session('status')" />
 
     <form method="POST" action="{{ route('login') }}">
         @csrf
-        
-        {{-- Email --}}
-        <label class="block mb-2 font-semibold text-gray-700">Email</label>
-        <input type="email" name="email" value="{{ old('email') }}"
-            class="w-full p-3 border rounded-lg mb-4 focus:ring-2 focus:ring-azulMedio focus:outline-none">
 
-        {{-- Senha --}}
-        <label class="block mb-2 font-semibold text-gray-700">Senha</label>
-        <input type="password" name="password"
-            class="w-full p-3 border rounded-lg mb-4 focus:ring-2 focus:ring-azulMedio focus:outline-none">
-
-        {{-- Lembrar --}}
-        <label class="flex items-center gap-2 mb-4 text-gray-600">
-            <input type="checkbox" name="remember">
-            Lembrar de mim
-        </label>
-
-        {{-- Botão --}}
-        <button class="w-full bg-laranja hover:bg-orange-500 text-white p-3 rounded-lg font-semibold transition">
-            Entrar
-        </button>
-
-        <div class="text-center mt-4 text-sm">
-            <a href="{{ route('password.request') }}" class="text-azulMedio hover:text-laranja">
-                Esqueceu sua senha?
-            </a>
+        <!-- Email -->
+        <div>
+            <label class="block text-azulEscuro font-semibold mb-1">Email</label>
+            <input type="email" name="email" value="{{ old('email') }}" required
+                class="w-full border-gray-300 rounded-lg shadow-sm focus:border-laranja focus:ring-laranja">
         </div>
 
-        <div class="text-center mt-2 text-sm">
-            Não tem conta? 
-            <a href="{{ route('register') }}" class="text-laranja font-semibold hover:text-orange-600">
-                Criar conta
-            </a>
+        <!-- Senha -->
+        <div class="mt-4">
+            <label class="block text-azulEscuro font-semibold mb-1">Senha</label>
+            <input type="password" name="password" required
+                class="w-full border-gray-300 rounded-lg shadow-sm focus:border-laranja focus:ring-laranja">
+        </div>
+
+        <!-- Lembrar -->
+        <div class="flex items-center mt-4">
+            <input type="checkbox" name="remember"
+                class="rounded border-gray-300 text-laranja focus:ring-laranja">
+            <span class="ml-2 text-gray-700">Lembrar de mim</span>
+        </div>
+
+        <!-- Botão -->
+    <button
+        class="w-full mt-6 bg-orange-600 text-white font-bold py-2 rounded-lg transition border border-laranja hover:bg-orange-500 active:bg-orange-600 focus:ring-2 focus:ring-orange-300">
+        Entrar
+    </button>
+
+
+        <!-- Links -->
+        <div class="mt-4 flex justify-between text-sm text-azulMedio">
+            <a href="{{ route('password.request') }}" class="hover:underline">Esqueceu a senha?</a>
+            <a href="{{ route('register') }}" class="hover:underline">Criar conta</a>
         </div>
 
     </form>
+
 </div>
 
 @endsection

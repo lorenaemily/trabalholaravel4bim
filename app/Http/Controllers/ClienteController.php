@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cliente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use App\Http\Requests\ClienteRequest;
 
 class ClienteController extends Controller
 {
@@ -28,7 +29,7 @@ class ClienteController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ClienteRequest $request)
     {
         $request->validate([
         'nome' => 'required|string|max:255',
@@ -37,7 +38,7 @@ class ClienteController extends Controller
         'endereco' => 'nullable|string|max:255',
         ]);
 
-         Cliente::create($request->all());
+        Cliente::create($request->all());
 
         return redirect()->route('clientes.index')
                          ->with( 'Cliente criado com sucesso.');
@@ -63,7 +64,7 @@ class ClienteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(ClienteRequest $request, $id)
     {
         $cliente = Cliente::findOrFail($id);
 

@@ -1,45 +1,57 @@
-@extends('layouts.app')
+@extends('layouts.guest')
 
 @section('content')
 
-<div class="max-w-md mx-auto bg-white p-8 rounded-xl shadow-lg">
-    <h2 class="text-2xl font-bold text-azulEscuro mb-6 text-center">Criar Conta</h2>
+<div class="bg-white shadow-lg rounded-xl p-8 border-t-4 border-laranja">
+
+    <h1 class="text-2xl font-bold text-azulEscuro text-center mb-6">
+        Criar conta
+    </h1>
 
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
-        {{-- Nome --}}
-        <label class="block mb-2 font-semibold text-gray-700">Nome</label>
-        <input type="text" name="name" value="{{ old('name') }}"
-            class="w-full p-3 border rounded-lg mb-4 focus:ring-2 focus:ring-azulMedio focus:outline-none">
+        <!-- Nome -->
+        <div>
+            <label class="block text-azulEscuro font-semibold mb-1">Nome</label>
+            <input type="text" name="name" value="{{ old('name') }}" required
+                class="w-full border-gray-300 rounded-lg shadow-sm focus:border-laranja focus:ring-laranja">
+        </div>
 
-        {{-- Email --}}
-        <label class="block mb-2 font-semibold text-gray-700">Email</label>
-        <input type="email" name="email" value="{{ old('email') }}"
-            class="w-full p-3 border rounded-lg mb-4 focus:ring-2 focus:ring-azulMedio focus:outline-none">
+        <!-- Email -->
+        <div class="mt-4">
+            <label class="block text-azulEscuro font-semibold mb-1">Email</label>
+            <input type="email" name="email" value="{{ old('email') }}" required
+                class="w-full border-gray-300 rounded-lg shadow-sm focus:border-laranja focus:ring-laranja">
+        </div>
 
-        {{-- Senha --}}
-        <label class="block mb-2 font-semibold text-gray-700">Senha</label>
-        <input type="password" name="password"
-            class="w-full p-3 border rounded-lg mb-4 focus:ring-2 focus:ring-azulMedio focus:outline-none">
+        <!-- Senha -->
+        <div class="mt-4">
+            <label class="block text-azulEscuro font-semibold mb-1">Senha</label>
+            <input type="password" name="password" required
+                class="w-full border-gray-300 rounded-lg shadow-sm focus:border-laranja focus:ring-laranja">
+        </div>
 
-        {{-- Confirmar senha --}}
-        <label class="block mb-2 font-semibold text-gray-700">Confirmar Senha</label>
-        <input type="password" name="password_confirmation"
-            class="w-full p-3 border rounded-lg mb-6 focus:ring-2 focus:ring-azulMedio focus:outline-none">
+        <!-- Confirmar Senha -->
+        <div class="mt-4">
+            <label class="block text-azulEscuro font-semibold mb-1">Confirmar Senha</label>
+            <input type="password" name="password_confirmation" required
+                class="w-full border-gray-300 rounded-lg shadow-sm focus:border-laranja focus:ring-laranja">
+        </div>
 
-        {{-- Botão --}}
-        <button class="w-full bg-laranja hover:bg-orange-500 text-white p-3 rounded-lg font-semibold transition">
-            Criar Conta
+        <!-- Botão -->
+        <button
+            class="w-full mt-6 bg-orange-600 hover:bg-orange-500 text-white font-bold py-2 rounded-lg transition">
+            Registrar
         </button>
 
-        <div class="text-center mt-4 text-sm">
-            Já tem conta?
-            <a href="{{ route('login') }}" class="text-azulMedio hover:text-laranja">
-                Entrar
-            </a>
-        </div>
+        <p class="mt-4 text-center text-azulMedio text-sm">
+            Já possui conta?
+            <a class="text-laranja hover:underline" href="{{ route('login') }}">Entrar</a>
+        </p>
+
     </form>
+
 </div>
 
 @endsection

@@ -1,31 +1,45 @@
-@extends('layouts.app')
+@extends('layouts.guest')
 
 @section('content')
 
-<div class="max-w-md mx-auto bg-white p-8 rounded-xl shadow-lg">
+<div class="bg-white shadow-lg rounded-xl p-8 border-t-4 border-laranja">
 
-    <h2 class="text-2xl font-bold text-azulEscuro mb-6 text-center">Nova Senha</h2>
+    <h1 class="text-xl font-bold text-azulEscuro text-center mb-4">
+        Redefinir Senha
+    </h1>
 
-    <form method="POST" action="{{ route('password.store') }}">
+    <form method="POST" action="{{ route('password.update') }}">
         @csrf
 
         <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
-        <label class="block mb-2 font-semibold text-gray-700">Email</label>
-        <input type="email" name="email" value="{{ old('email', $request->email) }}"
-               class="w-full p-3 border rounded-lg mb-4">
+        <!-- Email -->
+        <div>
+            <label class="block font-semibold text-azulEscuro mb-1">Email</label>
+            <input type="email" name="email" value="{{ old('email', $request->email) }}" required
+                class="w-full border-gray-300 rounded-lg shadow-sm focus:border-laranja focus:ring-laranja">
+        </div>
 
-        <label class="block mb-2 font-semibold text-gray-700">Nova Senha</label>
-        <input type="password" name="password"
-               class="w-full p-3 border rounded-lg mb-4">
+        <!-- Nova senha -->
+        <div class="mt-4">
+            <label class="block font-semibold text-azulEscuro mb-1">Nova Senha</label>
+            <input type="password" name="password" required
+                class="w-full border-gray-300 rounded-lg shadow-sm focus:border-laranja focus:ring-laranja">
+        </div>
 
-        <label class="block mb-2 font-semibold text-gray-700">Confirmar Senha</label>
-        <input type="password" name="password_confirmation"
-               class="w-full p-3 border rounded-lg mb-6">
+        <!-- Confirmar -->
+        <div class="mt-4">
+            <label class="block font-semibold text-azulEscuro mb-1">Confirmar Senha</label>
+            <input type="password" name="password_confirmation" required
+                class="w-full border-gray-300 rounded-lg shadow-sm focus:border-laranja focus:ring-laranja">
+        </div>
 
-        <button class="w-full bg-laranja text-white p-3 rounded-lg font-semibold hover:bg-orange-500">
+        <!-- Botão -->
+        <button
+            class="w-full mt-6 bg-orange-600 hover:bg-orange-500 text-white font-bold py-2 rounded-lg transition">
             Redefinir Senha
         </button>
+
     </form>
 
 </div>

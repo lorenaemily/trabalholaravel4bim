@@ -12,22 +12,31 @@
         <!-- Nome -->
         <div>
             <label class="font-semibold text-azulEscuro">Nome</label>
-            <input type="text" name="nome" required
+            <input type="text" name="nome" value="{{ old('nome') }}" required
                    class="w-full border rounded p-2 mt-1 focus:ring-laranja">
+            @error('nome')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Descrição -->
         <div>
             <label class="font-semibold text-azulEscuro">Descrição</label>
             <textarea name="descricao" rows="4" required
-                      class="w-full border rounded p-2 mt-1 focus:ring-laranja"></textarea>
+                      class="w-full border rounded p-2 mt-1 focus:ring-laranja">{{ old('descricao') }}</textarea>
+            @error('descricao')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Preço -->
         <div>
             <label class="font-semibold text-azulEscuro">Preço</label>
-            <input type="number" name="preco" step="0.01" required
+            <input type="number" name="preco" step="0.01" value="{{ old('preco') }}" required
                    class="w-full border rounded p-2 mt-1 focus:ring-laranja">
+            @error('preco')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <button class="bg-laranja text-white px-6 py-2 rounded shadow hover:bg-orange-500">

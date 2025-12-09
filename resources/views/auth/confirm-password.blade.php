@@ -1,23 +1,36 @@
-@extends('layouts.app')
+@extends('layouts.guest')
 
 @section('content')
 
-<div class="max-w-md mx-auto bg-white p-8 rounded-xl shadow-lg">
+<div class="bg-white shadow-lg rounded-xl p-8 border-t-4 border-laranja">
 
-    <h2 class="text-2xl font-bold text-azulEscuro mb-6 text-center">Confirmar Senha</h2>
+    <h1 class="text-xl font-bold text-azulEscuro text-center mb-4">
+        Confirmar Senha
+    </h1>
+
+    <p class="text-gray-600 mb-4">
+        Antes de continuar, confirme sua senha.
+    </p>
 
     <form method="POST" action="{{ route('password.confirm') }}">
         @csrf
 
-        <label class="block mb-2 font-semibold text-gray-700">Senha</label>
-        <input type="password" name="password"
-               class="w-full p-3 border rounded-lg mb-6">
+        <!-- Senha -->
+        <div>
+            <label class="block font-semibold text-azulEscuro mb-1">Senha</label>
+            <input type="password" name="password" required
+                class="w-full border-gray-300 rounded-lg shadow-sm focus:border-laranja focus:ring-laranja">
+        </div>
 
-        <button class="w-full bg-laranja text-white p-3 rounded-lg font-semibold hover:bg-orange-500">
+        <!-- Botão -->
+        <button
+            class="w-full mt-6 bg-orange-600 hover:bg-orange-500 text-white font-bold py-2 rounded-lg transition">
             Confirmar
         </button>
+
     </form>
 
 </div>
 
 @endsection
+

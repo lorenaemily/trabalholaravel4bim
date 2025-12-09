@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Requests\AgendamentoRequest;
 use App\Models\Agendamento;
 use App\Models\Cliente;
 use App\Models\Funcionario;
@@ -35,18 +35,9 @@ class AgendamentoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AgendamentoRequest $request)
     {
-        $request->validate([
-            'data' => 'required|date',
-            'hora' => 'required',
-            'servico_id' => 'required|exists:servicos,id',
-            'pet_id' => 'required|exists:pets,id',
-            'funcionario_id' => 'required|exists:funcionarios,id',
-            'cliente_id' => 'required|exists:clientes,id',
-        ]);
-
-        Agendamento::create($request->all());
+        Agendamento::create($request->validated());
         return redirect()
             ->route('agendamentos.index')
             ->with('success', 'Agendamento criado com sucesso.');
@@ -66,24 +57,22 @@ class AgendamentoController extends Controller
     public function edit($id)
     {
         $agendamento = Agendamento::findOrFail($id);
-        return view('agendamentos.edit', compact('agendamento'));
+        $clientes = Cliente::all();
+        $pets = Pet::all();
+        $servicos = Servico::all();
+        $funcionarios = Funcionario::all();
+
+        return view('agendamentos.edit', compact('agendamento', 'clientes', 'pets', 'servicos', 'funcionarios'));
     }
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(AgendamentoRequest $request, $id)
     {
-        $request->validate([
-            'data' => 'required|date',
-            'hora' => 'required',
-            'servico_id' => 'required|exists:servicos,id',
-            'pet_id' => 'required|exists:pets,id',
-            'funcionario_id' => 'required|exists:funcionarios,id',
-            'cliente_id' => 'required|exists:clientes,id',
-        ]);
-
-        Agendamento::update($request->all());
+        $agendamento = Agendamento::findOrFail($id);
+        $agendamento->update($request->validated());
         return redirect()
             ->route('agendamentos.index')
             ->with('success', 'Agendamento atualizado com sucesso.');

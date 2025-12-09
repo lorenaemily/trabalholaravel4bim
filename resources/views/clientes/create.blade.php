@@ -11,20 +11,29 @@
 
         <div>
             <label class="font-semibold text-azulEscuro">Nome</label>
-            <input type="text" name="nome" required
+            <input type="text" name="nome" value="{{ old('nome') }}" required
                    class="w-full border rounded p-2 mt-1 focus:ring-laranja">
+            @error('nome')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <div>
             <label class="font-semibold text-azulEscuro">Telefone</label>
-            <input type="text" name="telefone" required
+            <input type="text" name="telefone" value="{{ old('telefone') }}" required
                    class="w-full border rounded p-2 mt-1 focus:ring-laranja">
+            @error('telefone')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <div>
             <label class="font-semibold text-azulEscuro">Email</label>
-            <input type="email" name="email"
+            <input type="email" name="email" value="{{ old('email') }}"
                    class="w-full border rounded p-2 mt-1 focus:ring-laranja">
+            @error('email')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <button

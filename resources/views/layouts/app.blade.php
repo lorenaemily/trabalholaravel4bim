@@ -5,11 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name', 'PetShop') }}</title>
+    <script src="https://unpkg.com/imask"></script>
 
-    <!-- TAILWIND -->
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- CONFIGURAÇÃO DE CORES PERSONALIZADAS -->
+    <!-- Cores Personalizadas -->
     <script>
         tailwind.config = {
             theme: {
@@ -18,7 +19,7 @@
                         azulEscuro: "#0A1A2F",
                         azulMedio: "#12385B",
                         laranja: "#FF8A00",
-                        fundo: "#F4F4F7"
+                        fundo: "#F4F4F7",
                     }
                 }
             }
@@ -32,7 +33,7 @@
     <!-- NAVBAR -->
     <header class="bg-azulEscuro text-white shadow-md">
         <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <h1 class="text-xl font-bold">🐾 Sistema PetShop</h1>
+            <h1 class="text-xl font-bold">Sistema PetShop</h1>
 
             <div>
                 @auth
@@ -47,7 +48,6 @@
             </div>
         </div>
 
-        <!-- MENU -->
         <nav class="bg-azulMedio text-white">
             <ul class="flex gap-6 px-6 py-3 text-sm font-semibold">
                 <li><a href="/dashboard" class="hover:text-laranja">Dashboard</a></li>
@@ -60,16 +60,17 @@
         </nav>
     </header>
 
-    <!-- CONTEÚDO -->
-    <main class="max-w-7xl mx-auto py-8 px-6">
-        @yield('content')
-    </main>
+<!-- CONTEÚDO -->
+<main class="max-w-7xl mx-auto py-8 px-6">
+    @yield('content')
+</main>
+
 
     <!-- FOOTER -->
     <footer class="text-center py-6 text-gray-600 border-t mt-10">
         <p>&copy; {{ date('Y') }} PetShop • Desenvolvido por Lorena</p>
     </footer>
-
+@yield('scripts')
 </body>
-
 </html>
+

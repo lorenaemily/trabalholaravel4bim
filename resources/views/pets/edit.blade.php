@@ -1,41 +1,66 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <title>Editar Pet</title>
-</head>
-<body>
-    <h1>Edição de Pet</h1>
+@extends('layouts.app')
+
+@section('content')
+
+<h1 class="text-3xl font-bold text-azulEscuro mb-6">Editar Pet</h1>
+
+<div class="bg-white p-8 rounded-lg shadow-lg max-w-2xl">
 
     <form action="{{ route('pets.update', $pet->id) }}" method="POST">
         @csrf
         @method('PUT')
 
-        <label>Nome:</label> 
-        <input type="text" name="nome" value="{{$pet->nome}}" required><br><br>
+        {{-- Nome --}}
+        <label class="block font-semibold text-gray-700">Nome do Pet</label>
+        <input type="text" name="nome" value="{{ old('nome', $pet->nome) }}"
+               class="w-full p-3 border rounded-lg mb-1 focus:ring-2 focus:ring-azulMedio">
+        @error('nome')
+            <p class="text-red-500 text-sm mb-3">{{ $message }}</p>
+        @enderror
 
-        <label>Espécie:</label>
-        <input type="text" name="especie" value="{{$pet->especie}}" required><br><br>
+        {{-- Espécie --}}
+        <label class="block font-semibold text-gray-700">Espécie</label>
+        <input type="text" name="especie" value="{{ old('especie', $pet->especie) }}"
+               class="w-full p-3 border rounded-lg mb-1 focus:ring-2 focus:ring-azulMedio">
+        @error('especie')
+            <p class="text-red-500 text-sm mb-3">{{ $message }}</p>
+        @enderror
 
-        <label>Raça:</label>
-        <input type="text" name="raca" value="{{$pet->raca}}"><br><br>
+        {{-- Raça --}}
+        <label class="block font-semibold text-gray-700">Raça</label>
+        <input type="text" name="raca" value="{{ old('raca', $pet->raca) }}"
+               class="w-full p-3 border rounded-lg mb-1 focus:ring-2 focus:ring-azulMedio">
+        @error('raca')
+            <p class="text-red-500 text-sm mb-3">{{ $message }}</p>
+        @enderror
 
-        <label>Idade:</label>
-        <input type="int" name="idade" value= "{{ $pet->idade }}"><br><br>
+        {{-- Dono --}}
+        <label class="block font-semibold text-gray-700">Dono</label>
+        <select name="cliente_id"
+                class="w-full p-3 border rounded-lg mb-1 focus:ring-2 focus:ring-azulMedio">
+            @foreach ($clientes as $cliente)
+                <option value="{{ $cliente->id }}" {{ old('cliente_id', $pet->cliente_id) == $cliente->id ? 'selected' : '' }}>
+                    {{ $cliente->nome }}
+                </option>
+            @endforeach
+        </select>
+        @error('cliente_id')
+            <p class="text-red-500 text-sm mb-3">{{ $message }}</p>
+        @enderror
 
-        <label for="cliente_id">Dono (Cliente):</label>
-        <select name="cliente_id" id="cliente_id">
-                <option value="">Sem dono</option>
-                @foreach ($clientes as $cliente)
-                    <option value="{{ $cliente->id }}" {{ $pet->cliente_id == $cliente->id ? 'selected' : '' }}>
-                        {{ $cliente->nome }}
-                    </option>
-                @endforeach
-            </select>
+        <div class="flex justify-between mt-6">
+            <a href="{{ route('pets.index') }}"
+                class="px-6 py-2 rounded-lg font-semibold bg-gray-300 hover:bg-gray-400">
+                Cancelar
+            </a>
 
-        <button type="submit">Atualizar</button>
-        <a href="{{ route('pets.index') }}">Voltar</a>
+            <button class="px-6 py-2 bg-laranja text-white rounded-lg font-semibold hover:bg-orange-500">
+                Atualizar
+            </button>
+        </div>
+
     </form>
 
-</body>
-</html>
+</div>
+
+@endsection

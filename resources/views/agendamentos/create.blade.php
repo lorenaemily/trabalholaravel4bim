@@ -16,9 +16,14 @@
                     class="w-full border rounded p-2 mt-1 focus:ring-laranja">
                 <option value="">Selecione...</option>
                 @foreach ($clientes as $cliente)
-                    <option value="{{ $cliente->id }}">{{ $cliente->nome }}</option>
+                    <option value="{{ $cliente->id }}" {{ old('cliente_id') == $cliente->id ? 'selected' : '' }}>
+                        {{ $cliente->nome }}
+                    </option>
                 @endforeach
             </select>
+            @error('cliente_id')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Pet -->
@@ -28,9 +33,14 @@
                     class="w-full border rounded p-2 mt-1 focus:ring-laranja">
                 <option value="">Selecione...</option>
                 @foreach ($pets as $pet)
-                    <option value="{{ $pet->id }}">{{ $pet->nome }}</option>
+                    <option value="{{ $pet->id }}" {{ old('pet_id') == $pet->id ? 'selected' : '' }}>
+                        {{ $pet->nome }}
+                    </option>
                 @endforeach
             </select>
+            @error('pet_id')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Serviço -->
@@ -40,9 +50,14 @@
                     class="w-full border rounded p-2 mt-1 focus:ring-laranja">
                 <option value="">Selecione...</option>
                 @foreach ($servicos as $servico)
-                    <option value="{{ $servico->id }}">{{ $servico->nome }}</option>
+                    <option value="{{ $servico->id }}" {{ old('servico_id') == $servico->id ? 'selected' : '' }}>
+                        {{ $servico->nome }}
+                    </option>
                 @endforeach
             </select>
+            @error('servico_id')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Funcionário -->
@@ -52,16 +67,36 @@
                     class="w-full border rounded p-2 mt-1 focus:ring-laranja">
                 <option value="">Selecione...</option>
                 @foreach ($funcionarios as $funcionario)
-                    <option value="{{ $funcionario->id }}">{{ $funcionario->nome }}</option>
+                    <option value="{{ $funcionario->id }}" {{ old('funcionario_id') == $funcionario->id ? 'selected' : '' }}>
+                        {{ $funcionario->nome }}
+                    </option>
                 @endforeach
             </select>
+            @error('funcionario_id')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
-        <!-- Data e hora -->
+        <!-- Data -->
         <div>
-            <label class="font-semibold text-azulEscuro">Data e Hora</label>
-            <input type="datetime-local" name="data_hora" required
+            <label class="font-semibold text-azulEscuro">Data</label>
+            <input type="date" name="data" required
+                   value="{{ old('data') }}"
                    class="w-full border rounded p-2 mt-1 focus:ring-laranja">
+            @error('data')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <!-- Hora -->
+        <div>
+            <label class="font-semibold text-azulEscuro">Hora</label>
+            <input type="time" name="hora" required
+                   value="{{ old('hora') }}"
+                   class="w-full border rounded p-2 mt-1 focus:ring-laranja">
+            @error('hora')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <button
